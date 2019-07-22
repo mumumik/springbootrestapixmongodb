@@ -35,12 +35,15 @@ public class JwtTokenProvider {
 	@Autowired
 	private UserService userService;
 	
+	//used to encode the secretKey to Base64 encoding after the start of the application
 	@PostConstruct
 	protected void init() {
 		secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
 	}
 	
+	//used to create token when user is login to the application
 	public String createToken(String username, Set<Role> roles) {
+		System.out.println(secretKey);
 		Claims claims = Jwts.claims().setSubject(username);
 		claims.put("roles", roles);
 		Date now = new Date();
@@ -53,15 +56,19 @@ public class JwtTokenProvider {
 				.compact();
 	}
 	
+	//used in JwtTokenFilter.java to create an User authentication when the user is already login to the application
 	public Authentication getAuthentication(String token) {
 		UserDetails userDetails = this.userService.loadUserByUsername(getUsername(token));
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 	
+	//used in JwtTokenProvider.java, getAuthentication() method
+	//used to get the username/email/subject from the token
 	public String getUsername(String token) {
 		return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
 	}
 	
+	//used in JwtTokenFilter.java to make sure that the token starts with "Bearer "
 	public String resolveToken(HttpServletRequest req) {
 		String bearerToken = req.getHeader("Authorization");
 		if (bearerToken != null && bearerToken.startsWith("Bearer")) {
@@ -70,6 +77,7 @@ public class JwtTokenProvider {
 		return null;
 	}
 	
+	//used in JwtTokenFilter.java used to make sure that the token is not expired or invalid
 	public boolean validateToken(String token) {
 		try {
 			Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);

@@ -11,12 +11,13 @@
 	<groupId>com.mitrais.javabootcamp.charles</groupId>
 	<artifactId>springbootrestapixmongodb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>springbootrestapixmongodb</name>
 	<description>Spring Boot REST API with MongoDb</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -59,15 +60,35 @@
 		    <artifactId>jjwt</artifactId>
 		    <version>0.9.1</version>
 		</dependency>
+		
+		<!-- Cucumber -->
+	    <dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-core</artifactId>
+		    <version>4.5.2</version>
+		</dependency>
+	    <dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-java8</artifactId>
+		    <version>4.5.2</version>
+		</dependency>
+	    <dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-junit</artifactId>
+		    <version>4.5.2</version>
+		    <scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>

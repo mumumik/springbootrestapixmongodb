@@ -76,6 +76,7 @@ public class UserServiceImpl implements UserService {
 		});
 		
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
+		
 		return grantedAuthorities;
 	}
 	

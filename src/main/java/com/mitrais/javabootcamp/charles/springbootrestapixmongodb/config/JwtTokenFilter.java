@@ -20,6 +20,9 @@ public class JwtTokenFilter extends GenericFilterBean {
 		this.jwtTokenProvider = jwtTokenProvider;
 	}
 
+	
+	//used when user is already login to the application, this method will checks
+	// whether the token is valid and the token is not expired yet
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {

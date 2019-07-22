@@ -13,7 +13,7 @@ public class JwtConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilt
 		this.jwtTokenProvider = jwtTokenProvider;
 	}
 
-
+	//this method will check whether a token is still valid or not
 	@Override
 	public void configure(HttpSecurity builder) throws Exception {
 		
